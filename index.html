@@ -12,18 +12,17 @@
     <header>
       <h1 id="header">TV Show Project</h1>
     </header>
-    <main>
-      <div id="show">
+    <main id="show-container">
+      <div id="show-card">
+        <div class="cards">
+        </div>
       </div>
       <template id="episode-template">
         <div class="episode-container">
-          <h3 class="episode-title"></h3>
-          <p class="episode-code"></p>
           <img class="episode-img" src="" alt="Episode Image">
-          <p class="season-num"></p>
-          <p class="episode-num"></p>
+          <p class="episode-code"></p>
+          <h3 class="episode-title"></h3>
           <p class="episode-summary"></p>
-          <a class="episode-link" href=""></a>
         </div>
       </template>
   
@@ -34,7 +33,7 @@
       <script src="script.js"></script>
     </main>
     <footer>
-      <h5>Data from <a href="https://tvmaze.com">TVMaze.com</a></h5>
+      <h4>Data from <a href="https://tvmaze.com"><img id="tvmaze-img" src="./img/tvm-header-logo.png" alt="TV Maze logo"></a></h4>
     </footer>
   </body>
 </html>
