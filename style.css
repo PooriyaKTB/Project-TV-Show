@@ -1,3 +1,115 @@
-#root {
-  color: red;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #2e2e2e;
+}
+
+#header {
+  text-align: center;
+  background-color: #999999;
+  padding: 30px;
+  box-shadow: 0 0 20px #242424 inset;
+  text-shadow: 0 0 10px #ecececdc;
+}
+body {
+  background-color: #2e2e2e;
+}
+
+#show-card {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding: 1rem;
+  margin: 1rem 2rem;
+  align-items: center;
+}
+
+.episode-container {
+  background-color: #ecececdc;
+  height: fit-content;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 0 20px #222222 inset;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  line-height: 1.4rem;
+  margin: auto;
+}
+
+.episode-container:hover {
+  scale: 1.1;
+}
+
+.episode-container:hover .episode-code{
+  opacity: 100%;
+}
+
+.episode-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #2e2e2e;
+}
+
+.episode-code {
+  color: #222222;
+  background: #f7f7f7a6;
+  width: fit-content;
+  font-size: 1rem;
+  font-weight: 600;
+  text-shadow: 0 0 10px #e7e7e7d3;
+  border-radius: 10px;
+  padding: 0.5rem;
+  margin: 0.3rem;
+  position: absolute;
+  opacity: 60%;
+}
+.episode-title {
+  width: fit-content;
+  font-weight: 600;
+  margin: 1rem;
+  text-shadow: 0 0 10px #ecececdc;
+}
+
+.episode-summary {
+    width: fit-content;
+    text-shadow: 0 0 10px #e7e7e7d3;
+    font-weight: 400;
+    border-radius: 10px;
+    padding: 0.5rem;
+    margin: 0;
+}
+
+footer {
+  font-size: 1.5rem;
+  text-align: center;
+  background-color: #999999;
+  padding: 30px;
+  box-shadow: 0 0 20px #242424 inset;
+  text-shadow: 0 0 10px #ecececdc;
+}
+
+#tvmaze-img {
+  vertical-align: middle;
+  width: 8rem;
+}
+
+@media (max-width: 1200px) {
+  #show-card {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  #show-card {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  #show-card {
+    grid-template-columns: 1fr;
+  }
 }
