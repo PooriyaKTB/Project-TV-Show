@@ -9,14 +9,33 @@
   </head>
 
   <body>
-    <div id="root">
-    </div>
-
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
-
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
+    <header>
+      <h1 id="header">TV Show Project</h1>
+    </header>
+    <main>
+      <div id="show">
+      </div>
+      <template id="episode-template">
+        <div class="episode-container">
+          <h3 class="episode-title"></h3>
+          <p class="episode-code"></p>
+          <img class="episode-img" src="" alt="Episode Image">
+          <p class="season-num"></p>
+          <p class="episode-num"></p>
+          <p class="episode-summary"></p>
+          <a class="episode-link" href=""></a>
+        </div>
+      </template>
+  
+      <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
+      <script src="episodes.js"></script>
+  
+      <!-- Loads YOUR javascript code -->
+      <script src="script.js"></script>
+    </main>
+    <footer>
+      <h5>Data from <a href="https://tvmaze.com">TVMaze.com</a></h5>
+    </footer>
   </body>
 </html>
 <!--  -->
