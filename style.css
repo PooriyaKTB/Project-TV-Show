@@ -26,11 +26,13 @@ body {
   gap: 2rem;
   padding: 1rem;
   margin: 1rem 2rem;
+  align-items: center;
 }
 
 /* Episode card container part styling */
 .episode-container {
   background-color: #ecececdc;
+  height: fit-content;
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0 0 20px #222222 inset;
@@ -38,6 +40,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   line-height: 1.4rem;
+  margin: auto;
 }
 /* Slight zoom effect on hover for episode cards */
 .episode-container:hover {
@@ -76,7 +79,7 @@ body {
 .episode-title {
   width: fit-content;
   font-weight: 600;
-  margin: 1.5rem;
+  margin: 1rem;
   text-shadow: 0 0 10px #ecececdc;
 }
 
@@ -87,7 +90,6 @@ body {
     font-weight: 400;
     border-radius: 10px;
     padding: 0.5rem;
-    margin: auto 0;
 }
 
 /* Footer styling */
