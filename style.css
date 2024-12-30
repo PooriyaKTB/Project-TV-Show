@@ -5,29 +5,32 @@
   color: #2e2e2e;
 }
 
-#header {
+/* Header styling */
+#main-title {
   text-align: center;
   background-color: #999999;
   padding: 30px;
   box-shadow: 0 0 20px #242424 inset;
   text-shadow: 0 0 10px #ecececdc;
 }
+
+
 body {
   background-color: #2e2e2e;
 }
 
+/* Grid layout for episode cards */
 #show-card {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   padding: 1rem;
   margin: 1rem 2rem;
-  align-items: center;
 }
 
+/* Episode card container part styling */
 .episode-container {
   background-color: #ecececdc;
-  height: fit-content;
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0 0 20px #222222 inset;
@@ -35,17 +38,18 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   line-height: 1.4rem;
-  margin: auto;
 }
-
+/* Slight zoom effect on hover for episode cards */
 .episode-container:hover {
   scale: 1.1;
 }
 
+/* Make episode code fully visible on hover for better readability */
 .episode-container:hover .episode-code{
   opacity: 100%;
 }
 
+/* Episode image part styling */
 .episode-img {
   width: 100%;
   height: auto;
@@ -53,6 +57,7 @@ body {
   box-shadow: 0 0 10px #2e2e2e;
 }
 
+/* Episode code par styling */
 .episode-code {
   color: #222222;
   background: #f7f7f7a6;
@@ -66,22 +71,26 @@ body {
   position: absolute;
   opacity: 60%;
 }
+
+/* Episode title part styling */
 .episode-title {
   width: fit-content;
   font-weight: 600;
-  margin: 1rem;
+  margin: 1.5rem;
   text-shadow: 0 0 10px #ecececdc;
 }
 
+/* Episode summary part styling */
 .episode-summary {
     width: fit-content;
     text-shadow: 0 0 10px #e7e7e7d3;
     font-weight: 400;
     border-radius: 10px;
     padding: 0.5rem;
-    margin: 0;
+    margin: auto 0;
 }
 
+/* Footer styling */
 footer {
   font-size: 1.5rem;
   text-align: center;
@@ -91,11 +100,13 @@ footer {
   text-shadow: 0 0 10px #ecececdc;
 }
 
+/* adjusting TVMaze logo in the footer */
 #tvmaze-img {
   vertical-align: middle;
   width: 8rem;
 }
 
+/* Adjusting grid layout for smaller screens to make web-page responsive */
 @media (max-width: 1200px) {
   #show-card {
     grid-template-columns: repeat(3, 1fr);
