@@ -3,20 +3,63 @@ let allEpisodes = [];
 
 // Main setup function to initialize the page
 function setup() {
-  // Load all episodes and store them globally
-  allEpisodes = getAllEpisodes();
 
-  // Set up the search box event listener
-  setupSearchListener();
+  // Display loading message
+  displayLoadingMessage();
 
-  // Populate the episode selector dropdown and set up its event listener
-  setupEpisodeSelector();
+  //Fetch episodes from API
+  fetchEpisodes()
+    .then((episodes) => {
+      
+      allEpisodes = episodes;
+    
+      // Set up the search box event listener
+      setupSearchListener();
+    
+      // Populate the episode selector dropdown and set up its event listener
+      setupEpisodeSelector();
+    
+      // Generate the initial page content with all episodes
+      makePageForEpisodes(allEpisodes);
+    
+      // Update the displayed episode count
+      updateEpisodeCount(allEpisodes.length, allEpisodes.length);
+    })
+    .catch((error) => {
+      displayErrorMessage(`Failed to load episodes. Please try again later.`);
+      console.error("Error fetching data:", error);
+      alert('There was an error loading the episodes. Please try again later.');
+    });
+}
 
-  // Generate the initial page content with all episodes
-  makePageForEpisodes(allEpisodes);
+// Fetch episodes from the TVMaze API
+async function fetchEpisodes() {
+  const url = "https://api.tvmaze.com/shows/82/episodes";
+  try{
+    const response = await fetch(url);
+  
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    displayErrorMessage(`Failed to load episodes. Please try again later.`);
+    throw error; // Rethrow error if needed
+  };
+};
 
-  // Update the displayed episode count
-  updateEpisodeCount(allEpisodes.length, allEpisodes.length);
+// Display a loading message while fetching data
+function displayLoadingMessage() {
+  const show = document.getElementById("show-card");
+  show.innerHTML = '<p>Loading episodes... Please wait.</p>';
+}
+
+// Display an error message to the user
+function displayErrorMessage(message) {
+  const show = document.getElementById("show-card");
+  show.innerHTML = `<p class="error-message">${message}</p>`;
 }
 
 // Set up the search box to filter episodes based on user input
