@@ -9,27 +9,29 @@
   </head>
 
   <body>
-    <header>
+    <header id="header">
       <!-- Main title of the TV Show Project -->
       <h1 id="main-title">TV Show Project</h1>
 
-      <!-- Dropdown for selecting episodes -->
-      <div class="episode-select-container">
-        <select id="episode-selector">
-          <option value="all">All Episodes</option>
-        </select>
-      </div>
-
-      <!-- Search bar for filtering episodes -->
-      <div class="search-container">
-        <input
-          type="text"
-          id="searchBox"
-          placeholder="Search episodes..."
-          aria-label="Search episodes"
-        />
-        <!-- Displays the count of matching episodes -->
-        <p id="episode-count"></p>
+      <div class="features">
+        <!-- Dropdown for selecting episodes -->
+        <div class="episode-select-container">
+          <select id="episode-selector">
+            <option value="all">All Episodes</option>
+          </select>
+        </div>
+  
+        <!-- Search bar for filtering episodes -->
+        <div class="search-container">
+          <input
+            type="text"
+            id="searchBox"
+            placeholder="Search episodes..."
+            aria-label="Search episodes"
+          />
+          <!-- Displays the count of matching episodes -->
+          <p id="episode-count"></p>
+        </div>
       </div>
     </header>
 

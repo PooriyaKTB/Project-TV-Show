@@ -5,19 +5,32 @@
 }
 
 /* Header styling */
-#main-title {
-  text-align: center;
-  background-color: #999999;
-  padding: 30px;
-  box-shadow: 0 0 20px #242424 inset;
-  text-shadow: 0 0 10px #ecececdc;
+#header {
+  background: rgb(0, 128, 0);
+  background: linear-gradient(45deg, rgb(0, 128, 0) 0%, rgba(204, 255, 51, 1) 75%);
+  padding: 1rem 1rem;
+  text-shadow: -3px 3px 10px black;
+  color: #ffffff;
+  position: sticky;
+  z-index: 100;
+  width: 100%;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
 }
 
 body {
-  background-color: #2e2e2e;
+  background: rgb(187, 187, 187);
+  background: linear-gradient(45deg, rgba(187, 187, 187, 1) 0%, rgba(255, 255, 255, 1) 60%);
   font-family: Arial, Helvetica, sans-serif;
   color: #2e2e2e;
   line-height: 1.6;
+}
+
+.features {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 /* Grid layout for episode cards */
@@ -37,11 +50,11 @@ body {
   break-inside: avoid;
   margin-bottom: 2rem;
   overflow: hidden;
-  background-color: #ecececdc;
+  background-color: #ebebeb;
   height: fit-content;
   border-radius: 10px;
   padding: 1rem;
-  box-shadow: 0 0 20px #222222 inset;
+  box-shadow: -3px 3px 10px #afafafcb ;
   line-height: 1.4rem;
   transition: all 0.3s;
   overflow: hidden;
@@ -50,7 +63,7 @@ body {
 
 /* Slight zoom effect on hover for episode cards */
 .episode-container:hover {
-  scale: 1.1;
+  scale: 1.05;
 }
 
 /* Make episode code fully visible on hover for better readability */
@@ -63,7 +76,7 @@ body {
   width: 100%;
   height: auto;
   border-radius: 8px;
-  box-shadow: 0 0 10px #2e2e2e;
+  box-shadow: 0 0 5px #2e2e2e ;
 }
 
 /* Episode code par styling */
@@ -103,10 +116,16 @@ body {
 #episode-selector {
   width: 300px;
   padding: 8px;
-  border-radius: 20px;
+  border-radius: 15px;
   font-size: 1rem;
   background-color: #ecececdc;
-  border: 1px solid #2e2e2e;
+  border: none;
+  box-shadow: 0 0 4px black inset;
+}
+
+#episode-selector:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Search container styling */
@@ -115,18 +134,23 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  padding: 15px 0;
+  padding: 5px 0;
 }
 
 /* Search box styling */
 #searchBox {
   width: 300px;
   padding: 8px 16px;
-  border: 2px solid #2e2e2e;
-  border-radius: 20px;
+  border: none;
+  box-shadow: 0 0 4px black inset;
+  border-radius: 15px;
   font-size: 1rem;
   background-color: #ecececdc;
   transition: all 0.3s ease;
+}
+
+#episode-selector:hover, #searchBox:hover {
+  background-color: #dcdcdc;
 }
 
 #searchBox:focus {
@@ -143,21 +167,25 @@ body {
 #episode-count {
   font-size: 0.9rem;
   color: #2e2e2e;
-  font-weight: 500;
-  background-color: rgba(255, 255, 255, 0.8);
+  font-weight: 700;
+  text-shadow: none;
+  /* background-color: rgba(255, 255, 255, 0.8); */
   padding: 4px 12px;
   border-radius: 12px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */
+  text-align: center;
+  margin-top: 10px;
 }
 
 /* Footer styling */
 footer {
   font-size: 1.5rem;
   text-align: center;
-  background-color: #999999;
+  background-color: #006400;
   padding: 30px;
   box-shadow: 0 0 20px #242424 inset;
-  text-shadow: 0 0 10px #ecececdc;
+  text-shadow: 0 0 10px #242424;
+  color: #ffffff;
 }
 
 /* adjusting TVMaze logo in the footer */
@@ -184,5 +212,8 @@ footer {
   #show-card {
     columns: 1;
     padding: 0 1rem;
+  }
+  #episode-selector,#searchBox {
+    width: 100%;    /* Make search and dropdown take full width on smaller screens */
   }
 }
