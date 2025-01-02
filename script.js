@@ -64,8 +64,30 @@ function displayErrorMessage(message) {
 
 // Set up the search box to filter episodes based on user input
 function setupSearchListener() {
-  const searchBox = document.getElementById('searchBox');
-  searchBox.addEventListener('input', handleSearch); // Call handleSearch on input
+  const searchBox = document.getElementById("searchBox");
+  const clearIcon = document.getElementById("clear-icon");
+
+  searchBox.addEventListener("input", handleSearch); // Call handleSearch on input
+
+   // Show the clear icon when there's text in the search bar
+  searchBox.addEventListener("input", () => {
+    if (searchBox.value.trim() !== "") {
+      clearIcon.style.display = "block";
+    } else {
+      clearIcon.style.display = "none";
+      makePageForEpisodes(allEpisodes);
+      updateEpisodeCount(allEpisodes.length, allEpisodes.length);
+    }
+  });
+
+  // Clear the search bar when the clear icon is clicked
+  clearIcon.addEventListener("click", () => {
+    searchBox.value = "";
+    clearIcon.style.display = "none";
+    makePageForEpisodes(allEpisodes);
+    updateEpisodeCount(allEpisodes.length, allEpisodes.length);
+    handleSearch();
+  });
 }
 
 // Populate the episode selector dropdown and add an event listener
