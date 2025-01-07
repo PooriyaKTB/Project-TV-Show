@@ -1,89 +1,150 @@
 // Store all episodes globally so we can filter them
 let allEpisodes = [];
 
+// Cache for storing fetched shows and episodes
+const cache = {
+  shows: null,
+  episodes: {},
+};
+
 // Main setup function to initialize the page
 function setup() {
-
-  // Display loading message
   displayLoadingMessage();
 
-  //Fetch episodes from API
-  fetchEpisodes()
-    .then((episodes) => {
-      
-      allEpisodes = episodes;
-    
-      // Set up the search box event listener
-      setupSearchListener();
-    
-      // Populate the episode selector dropdown and set up its event listener
-      setupEpisodeSelector();
-    
-      // Generate the initial page content with all episodes
-      makePageForEpisodes(allEpisodes);
-    
-      // Update the displayed episode count
-      updateEpisodeCount(allEpisodes.length, allEpisodes.length);
+  // Fetch shows and populate the show selector
+  fetchShows()
+    .then((shows) => {
+      populateShowSelector(shows);
+      cache.shows = shows; // Cache the shows
     })
     .catch((error) => {
-      displayErrorMessage(`Failed to load episodes. Please try again later.`);
-      console.error("Error fetching data:", error);
-      alert('There was an error loading the episodes. Please try again later.');
+      displayErrorMessage(`Failed to load shows. Please try again later.`);
+      console.error('Error fetching shows:', error);
     });
 }
 
-// Fetch episodes from the TVMaze API
-async function fetchEpisodes() {
-  const url = "https://api.tvmaze.com/shows/82/episodes";
-  try{
+// Fetch all shows from the TVMaze API
+async function fetchShows() {
+  const url = 'https://api.tvmaze.com/shows';
+  try {
     const response = await fetch(url);
-  
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    
+
+    const shows = await response.json();
+    return shows.sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
+  } catch (error) {
+    console.error('Error fetching shows:', error);
+    throw error;
+  }
+}
+
+// Populate the show selector dropdown
+function populateShowSelector(shows) {
+  const showSelector = document.getElementById('show-selector');
+
+  // Add an option for each show
+  shows.forEach((show) => {
+    const option = document.createElement('option');
+    option.value = show.id;
+    option.textContent = show.name;
+    showSelector.appendChild(option);
+  });
+
+  // Add event listener for when a show is selected
+  showSelector.addEventListener('change', handleShowSelect);
+}
+
+// Handle show selection
+async function handleShowSelect(event) {
+  const showId = event.target.value;
+
+  if (!showId) return; // Ignore if no show is selected
+
+  displayLoadingMessage();
+
+  try {
+    let episodes;
+
+    // Check if episodes are already cached
+    if (cache.episodes[showId]) {
+      episodes = cache.episodes[showId];
+    } else {
+      // Fetch episodes for the selected show
+      episodes = await fetchEpisodes(showId);
+      cache.episodes[showId] = episodes; // Cache the episodes
+    }
+
+    allEpisodes = episodes;
+
+    // Reset search and episode selector
+    document.getElementById('searchBox').value = '';
+    document.getElementById('clear-icon').style.display = 'none';
+    document.getElementById('episode-selector').value = 'all';
+
+    // Update the page with the new episodes
+    makePageForEpisodes(allEpisodes);
+    updateEpisodeCount(allEpisodes.length, allEpisodes.length);
+    setupEpisodeSelector();
+  } catch (error) {
+    displayErrorMessage(`Failed to load episodes. Please try again later.`);
+    console.error('Error fetching episodes:', error);
+  }
+}
+
+// Fetch episodes for a specific show
+async function fetchEpisodes(showId) {
+  const url = `https://api.tvmaze.com/shows/${showId}/episodes`;
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
     return await response.json();
   } catch (error) {
-    console.error("Error fetching data:", error);
-    displayErrorMessage(`Failed to load episodes. Please try again later.`);
-    throw error; // Rethrow error if needed
-  };
-};
+    console.error('Error fetching episodes:', error);
+    throw error;
+  }
+}
 
 // Display a loading message while fetching data
 function displayLoadingMessage() {
-  const show = document.getElementById("show-card");
+  const show = document.getElementById('show-card');
   show.innerHTML = '<p>Loading episodes... Please wait.</p>';
 }
 
 // Display an error message to the user
 function displayErrorMessage(message) {
-  const show = document.getElementById("show-card");
+  const show = document.getElementById('show-card');
   show.innerHTML = `<p class="error-message">${message}</p>`;
 }
 
 // Set up the search box to filter episodes based on user input
 function setupSearchListener() {
-  const searchBox = document.getElementById("searchBox");
-  const clearIcon = document.getElementById("clear-icon");
+  const searchBox = document.getElementById('searchBox');
+  const clearIcon = document.getElementById('clear-icon');
 
-  searchBox.addEventListener("input", handleSearch); // Call handleSearch on input
+  searchBox.addEventListener('input', handleSearch); // Call handleSearch on input
 
-   // Show the clear icon when there's text in the search bar
-  searchBox.addEventListener("input", () => {
-    if (searchBox.value.trim() !== "") {
-      clearIcon.style.display = "block";
+  // Show the clear icon when there's text in the search bar
+  searchBox.addEventListener('input', () => {
+    if (searchBox.value.trim() !== '') {
+      clearIcon.style.display = 'block';
     } else {
-      clearIcon.style.display = "none";
+      clearIcon.style.display = 'none';
       makePageForEpisodes(allEpisodes);
       updateEpisodeCount(allEpisodes.length, allEpisodes.length);
     }
   });
 
   // Clear the search bar when the clear icon is clicked
-  clearIcon.addEventListener("click", () => {
-    searchBox.value = "";
-    clearIcon.style.display = "none";
+  clearIcon.addEventListener('click', () => {
+    searchBox.value = '';
+    clearIcon.style.display = 'none';
     makePageForEpisodes(allEpisodes);
     updateEpisodeCount(allEpisodes.length, allEpisodes.length);
     handleSearch();
@@ -93,6 +154,9 @@ function setupSearchListener() {
 // Populate the episode selector dropdown and add an event listener
 function setupEpisodeSelector() {
   const selector = document.getElementById('episode-selector');
+
+  // Clear existing options except the first one
+  selector.innerHTML = '<option value="all">All Episodes</option>';
 
   // Populate the selector with options for each episode
   allEpisodes.forEach((episode) => {
