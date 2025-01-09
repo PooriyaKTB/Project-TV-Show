@@ -13,7 +13,7 @@
       <div id="header">
         <!-- Main title of the TV Show Project -->
         <h1 id="main-title">TV Show Project</h1>
-
+        <h2 id="action-guide">Select Show</h2>
         <div class="features">
           <!-- Dropdown for selecting shows -->
           <div class="show-select-container">
@@ -21,6 +21,7 @@
               <option value="">Select a show...</option>
             </select>
           </div>
+          <button id="nav-to-shows" style="display: none;">Back to Shows</button>
 
           <!-- Dropdown for selecting episodes -->
           <div class="episode-select-container">
@@ -47,6 +48,8 @@
     </header>
 
     <main id="show-container">
+      <div id="show-listing"></div>
+      <div id="episode-listing"></div>
       <!-- Section to hold dynamically generated episode cards -->
       <div id="show-card">
         <div class="cards">
@@ -67,9 +70,22 @@
           <p class="episode-summary"></p>
         </div>
       </template>
+      <template id="show-template">
+        <div class="show-card">
+          <img class="show-image" alt="Show image">
+          <div>
+            <h3 class="show-title"></h3>
+            <p class="show-summary"></p>
+            <p class="show-genres"></p>
+            <p class="show-status"></p>
+            <p class="show-rating"></p>
+            <p class="show-runtime"></p>
+          </div>
+        </div>
+      </template>
 
       <!-- External JavaScript file providing data from getAllEpisodes() -->
-      <script src="episodes.js"></script>
+      <!-- <script src="episodes.js"></script> -->
 
       <!-- Main JavaScript file for app functionality -->
       <script src="script.js"></script>
