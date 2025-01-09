@@ -9,18 +9,12 @@ const cache = {
 
 // Main setup function to initialize the page
 function setup() {
+  document.getElementById('episode-selector').style.display = 'none'; // Hide episodes initially
+  document.getElementById('searchBox').placeholder = 'Search shows...'; // Set initial placeholder
+  displayShows(); // Display the list of shows
+  setupShowSearch(); // Enable show search
+  setupShowSelector();
   displayLoadingMessage();
-
-  // Fetch shows and populate the show selector
-  fetchShows()
-    .then((shows) => {
-      populateShowSelector(shows);
-      cache.shows = shows; // Cache the shows
-    })
-    .catch((error) => {
-      displayErrorMessage(`Failed to load shows. Please try again later.`);
-      console.error('Error fetching shows:', error);
-    });
 }
 
 // Fetch all shows from the TVMaze API
@@ -41,20 +35,94 @@ async function fetchShows() {
   }
 }
 
+async function displayShows() {
+  if (cache.shows) {
+    populateShowsListing(cache.shows);
+  } else {
+    try {
+      const shows = await fetchShows();
+      cache.shows = shows; // Cache the shows
+      populateShowsListing(shows);
+    } catch (error) {
+      displayErrorMessage(`Failed to load shows. Please try again later.`);
+      console.error('Error fetching shows:', error);
+    }
+  }
+}
+
+// Populate the shows listing
+function populateShowsListing(shows) {
+  const showListing = document.getElementById('show-listing');
+  showListing.innerHTML = ''; // Clear existing content
+
+  const fragment = document.createDocumentFragment();
+
+  shows.forEach((show) => {
+    const card = document.createElement('div');
+    card.classList.add('show-card');
+
+    card.innerHTML = `
+      <img src="${show.image?.medium || 'placeholder.jpg'}" alt="${show.name}">
+      <h2 class="show-name" data-id="${show.id}">${show.name}</h2>
+      <p>${show.summary}</p>
+      <p><strong>Genres:</strong> ${show.genres.join(', ')}</p>
+      <p><strong>Status:</strong> ${show.status}</p>
+      <p><strong>Rating:</strong> ${show.rating.average || 'N/A'}</p>
+      <p><strong>Runtime:</strong> ${show.runtime} mins</p>
+    `;
+
+    fragment.appendChild(card);
+  });
+
+  showListing.appendChild(fragment);
+
+  // Add click listeners to show names
+  const showNames = document.querySelectorAll('.show-name');
+  showNames.forEach((name) =>
+    name.addEventListener('click', (e) => handleShowClick(e.target.dataset.id))
+  );
+}
+
+async function setupShowSelector() {
+  const showSelector = document.getElementById("show-selector");
+  if (cache.shows) {
+    populateShowSelector(cache.shows);
+  } else {
+    try {
+      const shows = await fetchShows();
+      cache.shows = shows;
+      populateShowSelector(shows);
+    } catch (error) {
+      console.error("Error fetching shows:", error);
+    }
+  }
+
+  showSelector.addEventListener("change", async (event) => {
+    const showId = event.target.value;
+    if (!showId) return;
+    await handleShowSelect({ target: {value: showId}});
+  });
+}
+
 // Populate the show selector dropdown
 function populateShowSelector(shows) {
   const showSelector = document.getElementById('show-selector');
-
-  // Add an option for each show
+  showSelector.innerHTML = '<option value="">Select a Show</option>';
   shows.forEach((show) => {
     const option = document.createElement('option');
     option.value = show.id;
     option.textContent = show.name;
     showSelector.appendChild(option);
   });
+}
 
-  // Add event listener for when a show is selected
-  showSelector.addEventListener('change', handleShowSelect);
+async function handleShowClick(showId) {
+  document.getElementById('show-listing').style.display = 'none';
+  document.getElementById('episode-listing').style.display = 'block';
+  document.getElementById('nav-to-shows').style.display = 'block';
+  document.getElementById('episode-selector').style.display = 'block'; // Show episode selector
+  toggleSearchBehavior(false); // Switch to episode search
+  await handleShowSelect({ target: { value: showId } });
 }
 
 // Handle show selection
@@ -114,7 +182,10 @@ async function fetchEpisodes(showId) {
 // Display a loading message while fetching data
 function displayLoadingMessage() {
   const show = document.getElementById('show-card');
-  show.innerHTML = '<p>Loading episodes... Please wait.</p>';
+  show.innerHTML = `
+    <div class="loading-spinner"></div>
+    <p>Loading episodes... Please wait.</p>
+  `;
 }
 
 // Display an error message to the user
@@ -249,6 +320,38 @@ const createEpisodeCard = (episode) => {
 
   return card;
 };
+
+// Add navigation between shows and episodes views
+document.getElementById('nav-to-shows').addEventListener('click', () => {
+  document.getElementById('episode-listing').style.display = 'none';
+  document.getElementById('episode-listing').style.display = 'none';
+  document.getElementById('show-listing').style.display = 'block';
+  document.getElementById('nav-to-shows').style.display = 'none';
+  document.getElementById('episode-selector').style.display = 'none'; // Hide episode selector
+  toggleSearchBehavior(true); // Switch to show search
+});
+
+// Set up the show search functionality
+function setupShowSearch() {
+  const searchBox = document.getElementById('searchBox');
+  searchBox.placeholder = 'Search shows...'; // Adjust placeholder for show search
+
+  searchBox.addEventListener('input', () => {
+    const searchTerm = searchBox.value.toLowerCase();
+
+    const filteredShows = cache.shows.filter((show) => {
+      const nameMatch = show.name.toLowerCase().includes(searchTerm);
+      const genreMatch = show.genres.some((genre) =>
+        genre.toLowerCase().includes(searchTerm)
+      );
+      const summaryMatch = show.summary?.toLowerCase().includes(searchTerm);
+
+      return nameMatch || genreMatch || summaryMatch;
+    });
+
+    populateShowsListing(filteredShows);
+  });
+}
 
 // Initialize the page when the window loads
 window.onload = setup;
