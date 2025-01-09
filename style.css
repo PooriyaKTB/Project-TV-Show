@@ -74,6 +74,8 @@ body {
   width: 1200px;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
+  gap: 0.7rem;
 }
 
 /* Grid layout for episode cards */
@@ -157,6 +159,17 @@ body {
   /* padding: 10px 0 20px; */
 }
 
+/* #show-selector {
+  width: 300px;
+  padding: 8px;
+  border-radius: 15px;
+  font-size: 1rem;
+  background-color: #ecececdc;
+  border: none;
+  box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
+} */
+
+#episode-selector,
 #show-selector {
   width: 300px;
   padding: 8px;
@@ -167,17 +180,8 @@ body {
   box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
-#episode-selector {
-  width: 300px;
-  padding: 8px;
-  border-radius: 15px;
-  font-size: 1rem;
-  background-color: #ecececdc;
-  border: none;
-  box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
-}
-
-#episode-selector:focus {
+#episode-selector:focus,
+#show-selector:focus {
   outline: none;
   box-shadow: -2px 2px 10px black inset;
 }
@@ -217,7 +221,8 @@ body {
 }
 
 #episode-selector:hover,
-#searchBox:hover {
+#searchBox:hover,
+#show-selector:hover {
   background-color: #dcdcdc;
 }
 

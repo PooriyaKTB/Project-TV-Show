@@ -10,6 +10,7 @@ const cache = {
 // Main setup function to initialize the page
 function setup() {
   document.getElementById('episode-selector').style.display = 'none'; // Hide episodes initially
+  document.getElementById('nav-to-shows').style.display = 'none'; // Hide back to show button initially
   document.getElementById('searchBox').placeholder = 'Search shows...'; // Set initial placeholder
   displayShows(); // Display the list of shows
   setupShowSearch(); // Enable show search
@@ -124,6 +125,15 @@ async function handleShowClick(showId) {
   toggleSearchBehavior(false); // Switch to episode search
   await handleShowSelect({ target: { value: showId } });
 }
+
+// Add hover effect for elements with the class "show-title"
+document.addEventListener("DOMContentLoaded", () => {
+  const showTitles = document.querySelectorAll(".show-title");
+
+  showTitles.forEach((title) => {
+    title.style.cursor = "pointer"; // Set cursor to pointer on hover
+  });
+});
 
 // Handle show selection
 async function handleShowSelect(event) {
