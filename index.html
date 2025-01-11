@@ -1,90 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | Pooriya Ketabi (PooriyaKTB)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
 
-  <body>
-    <header id="main-header">
-      <div id="header">
-        <!-- Main title of the TV Show Project -->
-        <h1 id="main-title">TV Show Project</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV Show Project | Pooriya Ketabi (PooriyaKTB)</title>
+  <link href="style.css" rel="stylesheet" />
+  <link href="show..css" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
 
-        <div class="features">
-          <!-- Dropdown for selecting shows -->
-          <div class="show-select-container">
-            <select id="show-selector">
-              <option value="">Select a show...</option>
-            </select>
-          </div>
-
-          <!-- Dropdown for selecting episodes -->
-          <div class="episode-select-container">
-            <select id="episode-selector">
-              <option value="all">All Episodes</option>
-            </select>
-          </div>
-
-          <!-- Search bar for filtering episodes -->
-          <div class="search-container">
-            <input
-              type="text"
-              id="searchBox"
-              placeholder="Search episodes..."
-              aria-label="Search episodes"
-            />
-            <span id="clear-icon" class="clear-icon" style="display: none"
-              >&#x2715;</span
-            >
-          </div>
-          <p id="episode-count"></p>
-        </div>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="top-header">
+        <h1></h1>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <main id="show-container">
-      <!-- Section to hold dynamically generated episode cards -->
-      <div id="show-card">
-        <div class="cards">
-          <!-- Placeholder for dynamically generated cards -->
-        </div>
+  <div class="search-container">
+    <div class="container">
+      <div class="search-wrapper">
+        <input type="search" id="episode-search" placeholder="Search episodes..." />
+        <select id="show-selector">
+          <option value="">Select Show</option>
+        </select>
+        <select id="episode-selector">
+          <option value="">Select Episode</option>
+        </select>
       </div>
+    </div>
+  </div>
 
-      <!-- Template for creating episode cards dynamically -->
-      <template id="episode-template">
-        <div class="episode-container">
-          <!-- Placeholder for episode image -->
-          <img class="episode-img" src="" alt="Episode Image" />
-          <!-- Placeholder for episode code -->
-          <p class="episode-code"></p>
-          <!-- Placeholder for episode title -->
-          <h3 class="episode-title"></h3>
-          <!-- Placeholder for episode summary -->
-          <p class="episode-summary"></p>
-        </div>
-      </template>
+  <main>
+    <div class="container">
+      <div class="cards-grid" id="cards-container"></div>
+      <div class="tv-shows" id="shows-container"></div>
+    </div>
+  </main>
 
-      <!-- External JavaScript file providing data from getAllEpisodes() -->
-      <script src="episodes.js"></script>
+  <footer class="footer-container">
+    <p>
+      Data provided by
+      <a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">TVMaze.com</a>
+    </p>
+  </footer>
+  <script src="script.js"></script>
+</body>
 
-      <!-- Main JavaScript file for app functionality -->
-      <script src="script.js"></script>
-    </main>
-
-    <footer>
-      <h4>
-        Data from
-        <a href="https://tvmaze.com"
-          ><img
-            id="tvmaze-img"
-            src="./img/tvm-header-logo.png"
-            alt="TV Maze logo"
-        /></a>
-      </h4>
-    </footer>
-  </body>
 </html>

@@ -1,67 +1,184 @@
+/* Reset and Base Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Header styling */
-#main-header {
-  background: rgb(0, 128, 0);
-  background: linear-gradient(
-    45deg,
-    rgb(0, 128, 0) 0%,
-    rgba(204, 255, 51, 1) 75%
-  );
-  position: sticky;
-  z-index: 100;
-  top: 0;
-}
-#header {
-  padding: 1rem 1rem;
-  text-shadow: -3px 3px 10px black;
-  color: #ffffff;
-  width: 1280px;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-}
-
-#main-title {
-  padding-bottom: 1.5rem;
-}
-
 body {
-  background: rgb(187, 187, 187);
-  background: linear-gradient(
-    45deg,
-    rgba(187, 187, 187, 1) 0%,
-    rgba(255, 255, 255, 1) 60%
-  );
-  font-family: Arial, Helvetica, sans-serif;
-  color: #2e2e2e;
+  font-family: Arial, sans-serif;
   line-height: 1.6;
+  background-color: #f5f5f5;
+  color: #333;
 }
 
-.features {
-  width: 1200px;
+/* Header Styles */
+.main-header {
+  background: rgb(0, 128, 0);
+  background: linear-gradient(45deg,
+      rgb(0, 128, 0) 0%,
+      rgba(204, 255, 51, 1) 75%);
+  color: rgb(255, 255, 255);
   display: flex;
-  justify-content: space-evenly;
+  align-items: center;
 }
 
-/* Grid layout for episode cards */
-#show-card {
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.main-header .container {
+  width: 100%;
+}
+
+.main-header h1 {
+  font-size: 2rem;
+}
+
+/* Search Bar Styles */
+.search-container {
+  background: rgb(0, 128, 0);
+  background: linear-gradient(45deg,
+      rgb(0, 128, 0) 0%,
+      rgba(204, 255, 51, 1) 75%);
+  width: 100%;
+}
+
+.search-container .container {
+  padding: 1rem 2rem;
+}
+
+.search-wrapper {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  position: relative;
+  max-width: 100%;
+  gap: 1rem;
+}
+
+#episode-search,
+#show-selector,
+#episode-selector {
+  flex: 1;
+  min-width: 200px;
+}
+
+#episode-count {
+  font-size: 0.9rem;
+  color: #2e2e2e;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgb(245, 245, 245);
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  padding: 4px 12px;
+  border-radius: 12px;
+  box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  background: rgba(204, 255, 51, 1);
+  background: linear-gradient(45deg,
+      rgb(146, 194, 2) 10%,
+      rgba(204, 255, 51, 1) 40%);
+  /* margin-top: 10px; */
+}
+
+#episode-search {
+  width: 300px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 15px;
+  box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
+  font-size: 1rem;
+  background-color: #ecececdc;
+  transition: all 0.3s ease;
+}
+
+#episode-search:focus {
+  box-shadow: 0 0 0 1px rgba(74, 144, 226, 0.5);
+  border-color: #4a90e2;
+}
+
+#episode-selector {
+  width: 300px;
+  padding: 8px;
+  border-radius: 15px;
+  font-size: 1rem;
+  background-color: #ecececdc;
+  border: none;
+  box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Optional: Style for focus state */
+#episode-selector:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+#show-selector {
+  width: 300px;
+  padding: 8px;
+  border-radius: 15px;
+  font-size: 1rem;
+  background-color: #ecececdc;
+  border: none;
+  box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+#show-selector:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.back-button {
+  padding: 0.8rem 1rem;
+  background-color: #ebebeb;
+  color: black;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: inline-block;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  background-position: right 1rem top 50%;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Rest of your existing styles... */
+.header-attribution {
+  color: #ecf0f1;
+  font-size: 0.9rem;
+}
+
+.header-attribution a {
+  color: #f1c40f;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.header-attribution a:hover {
+  color: #f39c12;
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+}
+
+/* The key changes for Pinterest-style layout */
+.cards-grid {
   columns: 4;
   column-gap: 2rem;
 }
 
-#show-container {
-  max-width: 1280px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-/* Episode card container part styling */
-.episode-container {
+.card {
   break-inside: avoid;
   margin-bottom: 2rem;
   overflow: hidden;
@@ -76,27 +193,31 @@ body {
   position: relative;
 }
 
-/* Slight zoom effect on hover for episode cards */
-.episode-container:hover {
-  scale: 1.05;
-  box-shadow: -6px 6px 10px #7a7a7acb;
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Make episode code fully visible on hover for better readability */
-.episode-container:hover .episode-code {
-  opacity: 100%;
-}
-
-/* Episode image part styling */
-.episode-img {
+.card img {
   width: 100%;
   height: auto;
+  object-fit: cover;
+  display: block;
   border-radius: 8px;
-  box-shadow: 0 0 5px #2e2e2e;
 }
 
-/* Episode code par styling */
-.episode-code {
+.card-content {
+  padding: 1rem 0.8rem;
+  position: relative;
+}
+
+.card-content h2 {
+  color: #5d5d5d;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.episode-number {
   color: #222222;
   background: #f7f7f7a6;
   font-size: 1rem;
@@ -105,126 +226,17 @@ body {
   padding: 0.5rem 0.8rem;
   opacity: 90%;
   display: inline-block;
+  margin-bottom: 20px;
 }
 
-/* Episode title part styling */
-.episode-title {
-  width: fit-content;
-  font-weight: 600;
-  margin: 1rem 0;
-  text-shadow: 0 0 10px #ecececdc;
-}
-
-/* Episode summary part styling */
-.episode-summary {
-  width: fit-content;
-  text-shadow: 0 0 10px #e7e7e7d3;
-  font-weight: 400;
-  border-radius: 10px;
-  margin: 1rem 0;
-}
-
-.episode-select-container {
-  text-align: center;
-  /* padding: 10px 0 20px; */
-}
-
-#show-selector {
-  width: 300px;
-  padding: 8px;
-  border-radius: 15px;
-  font-size: 1rem;
-  background-color: #ecececdc;
-  border: none;
-  box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
-}
-
-#episode-selector {
-  width: 300px;
-  padding: 8px;
-  border-radius: 15px;
-  font-size: 1rem;
-  background-color: #ecececdc;
-  border: none;
-  box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
-}
-
-#episode-selector:focus {
-  outline: none;
-  box-shadow: -2px 2px 10px black inset;
-}
-
-/* Search container styling */
-.search-container {
-  position: relative;
-  display: inline-block;
-  /* gap: 5px; */
-  /* padding: 5px 0; */
-}
-
-.clear-icon {
-  position: absolute;
-  right: 13px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  font-size: 18px;
-  color: #888;
-}
-
-.clear-icon:hover {
-  color: #333;
-}
-
-/* Search box styling */
-#searchBox {
-  width: 300px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 15px;
-  box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
-  font-size: 1rem;
-  background-color: #ecececdc;
-  transition: all 0.3s ease;
-}
-
-#episode-selector:hover,
-#searchBox:hover {
-  background-color: #dcdcdc;
-}
-
-#searchBox:focus {
-  outline: none;
-  box-shadow: -2px 2px 10px black inset;
-  width: 340px;
-}
-
-#searchBox::placeholder {
-  color: #666;
-}
-
-/* Episode count display styling */
-#episode-count {
+.card-content p {
+  color: #5a5a5a;
   font-size: 0.9rem;
-  color: #2e2e2e;
-  font-weight: 700;
-  text-shadow: 0 0 10px rgb(245, 245, 245);
-  /* background-color: rgba(255, 255, 255, 0.8); */
-  padding: 4px 12px;
-  border-radius: 12px;
-  box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  background: rgba(204, 255, 51, 1);
-  background: linear-gradient(
-    45deg,
-    rgb(146, 194, 2) 10%,
-    rgba(204, 255, 51, 1) 40%
-  );
-  /* margin-top: 10px; */
+  line-height: 1.5;
+  margin-top: 0.5rem;
 }
 
-/* Footer styling */
-footer {
+.footer-container {
   font-size: 1.5rem;
   text-align: center;
   background: rgb(0, 128, 0);
@@ -235,33 +247,111 @@ footer {
   color: #ffffff;
 }
 
-/* adjusting TVMaze logo in the footer */
-#tvmaze-img {
-  vertical-align: middle;
-  width: 8rem;
+.footer-container a {
+  color: #f1c40f;
+  text-decoration: none;
 }
 
-/* Adjusting grid layout for smaller screens to make web-page responsive */
+.attribution a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
 @media (max-width: 1200px) {
-  #show-card {
+  .cards-grid {
     columns: 3;
   }
 }
 
 @media (max-width: 900px) {
-  #show-card {
+  .cards-grid {
     columns: 2;
+    padding-top: 0;
+  }
+
+  #episode-count {
+    font-size: 15px;
+  }
+
+  .search-wrapper {
     padding: 0 1rem;
+  }
+
+  .search-container .container {
+    padding: 1rem 0rem;
+  }
+
+  .container {
+    padding: 1rem;
   }
 }
 
 @media (max-width: 600px) {
-  #show-card {
-    columns: 1;
+  .main-header {
+    height: 80px;
+    min-height: 80px;
+  }
+
+  .main-header .container {
+    padding: 1rem;
+  }
+
+  .main-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .top-header {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+
+  .header-attribution {
+    font-size: 0.8rem;
+  }
+
+  .search-container {
+    top: 80px;
+  }
+
+  .search-wrapper {
+    display: block;
     padding: 0 1rem;
   }
-  #episode-selector,
-  #searchBox {
-    width: 100%; /* Make search and dropdown take full width on smaller screens */
+
+  #episode-search {
+    width: 100%;
+  }
+
+  #episode-count {
+    margin-top: 1rem;
+    width: 9rem;
+    text-align: center;
+  }
+
+  .search-container .container {
+    padding: 1rem 0rem;
+  }
+
+  #episode-selector {
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  #show-selector {
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  .cards-grid {
+    columns: 1;
+    padding-top: 0;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  .back-button {
+    margin-top: 1rem;
   }
 }
